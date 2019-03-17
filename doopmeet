@@ -9,7 +9,7 @@ function setup() {
 }
 
 var person = 0;
-var personSpeed = 2;
+var personSpeed = 3;
 var personChangeX = personSpeed;
 
 var personY = 200;
