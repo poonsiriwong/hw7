@@ -1,0 +1,71 @@
+// The sound file splash.mp3 came from
+// http://soundbible.com/1139-Water-Drop-Low.html
+
+let y1;
+function setup() {
+  createCanvas(600, 400);
+  textSize(32);
+  y1 = random(height);
+}
+
+var person = 0;
+var personSpeed = 2;
+var personChangeX = personSpeed;
+
+var personY = 200;
+var personSpeedY = 0;
+var personChangeY = personSpeedY;
+
+var b1;
+var b2;
+
+let x1 = 400;
+
+function preload() {
+  soundFormats('mp3', 'ogg');
+  splash = loadSound('sounds/splash.mp3');
+}
+
+function draw() {
+  fill(0,0,255);
+  background(220);
+  fill(person, 50, 50);
+  b1 = ellipse(x1, y1, 25);
+  b2 = ellipse(person, person + personY, 25);
+  person = person + personChangeX;
+  personY = personY - personChangeY;
+  
+  // Check if ball is off right hand side of screen
+  if (person >= width) {
+    text("You Lose :(", 225, 50);
+  }
+  // Check if ball is off left hand side of screen
+  if (person <= 0) {
+    personChangeX = personSpeed;
+  }
+  
+  if (personY >= 0) {
+    personChangeY = -personSpeedY;
+  }
+  // 
+  if (person + personY <= height) {
+    personChangeY = personSpeedY;
+  }
+  var d = dist(x1, y1, person, person + personY);
+  if (d < 25) {
+  text("You Win!", 225, 50);
+  fill(50);
+  noLoop();
+  }
+}
+
+function mousePressed() {
+  loop();
+  splash.play();
+  personChangeY = personSpeedY + 100;
+  noLoop();
+}
+
+function mouseReleased() {
+  loop();
+}
